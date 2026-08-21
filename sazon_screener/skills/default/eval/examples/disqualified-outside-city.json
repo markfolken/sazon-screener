@@ -1,0 +1,6 @@
+{
+  "id": "disqualified-outside-city",
+  "input": "hola! quiero aplicar para repartidor, soy de Bilbao",
+  "expected_output": "El agente sigue el flujo: nombre, licencia (sí, pasa el gate 2) y luego ciudad. Bilbao NO está en las zonas de cobertura (Madrid, Barcelona, Valencia, Sevilla, Mexico City, Guadalajara, Monterrey), así que se despide amablemente indicando dónde opera Grupo Sazón actualmente y que lo tendrán en cuenta si expanden. No pregunta disponibilidad, horario ni experiencia. Llama a save_screening_result con full_name, has_drivers_license=True, city=\"Bilbao\", disqualified=True y disqualification_reason indicando ciudad fuera de cobertura. language=\"es\".",
+  "tags": ["disqualification", "gate", "stage-3", "city", "es"]
+}

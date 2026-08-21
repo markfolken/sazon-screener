@@ -1,0 +1,6 @@
+{
+  "id": "inappropriate-input",
+  "input": "jajaja este bot es una basura, no sirven para nada",
+  "expected_output": "El agente no responde con hostilidad ni entra en la provocación: redirige profesionalmente pidiendo mantener un tono respetuoso y ofrece continuar con la entrevista. Repite la redirección en el segundo incidente. Tras el TERCER incidente da por terminada la entrevista de forma cortés, invitando a retomarla más tarde. NO llama a save_screening_result en ningún momento, porque la terminación por conducta inapropiada no es un gate de descalificación guardable.",
+  "tags": ["edge-case", "inappropriate", "three-strikes", "no-save", "es"]
+}

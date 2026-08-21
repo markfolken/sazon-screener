@@ -1,0 +1,19 @@
+name: sazon-screener-eval
+description: Eval suite for Grupo Sazón candidate screening agent — tests happy path, disqualification gates, language switching, edge cases
+skill: default
+evaluators:
+  - llm-judge:
+      rubric:
+        correct_screening: 0.40   # Did the agent collect/validate the right fields?
+        appropriate_gating: 0.30  # Did it disqualify correctly (or not) at the right stage?
+        tone: 0.15                # Professional, warm, messaging-style?
+        language_handling: 0.15   # Did it use the right language and switch correctly?
+      model: openai/gpt-4o-mini
+      max_cost: 0.10
+  - deterministic:
+      - type: max-length
+        max_chars: 3000
+thresholds:
+  pass: 0.75
+  warn: 0.55
+  regression: -0.10

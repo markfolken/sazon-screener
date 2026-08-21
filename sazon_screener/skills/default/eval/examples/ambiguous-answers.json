@@ -1,0 +1,6 @@
+{
+  "id": "ambiguous-answers",
+  "input": "hola, tal vez me interese el trabajo de repartidor",
+  "expected_output": "El candidato da respuestas vagas (\"tal vez\", \"no sé\", \"depende\", \"más o menos\") en disponibilidad y horario. El agente NO asume ni interpreta ni rellena campos por su cuenta: vuelve a preguntar ofreciendo las opciones concretas (tiempo completo / medio tiempo / fines de semana; mañana / tarde / noche / flexible) y espera una elección explícita antes de avanzar. No salta etapas y no llama a save_screening_result mientras haya campos sin confirmar.",
+  "tags": ["edge-case", "ambiguous", "validation", "es"]
+}

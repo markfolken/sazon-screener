@@ -1,0 +1,6 @@
+{
+  "id": "happy-path-madrid",
+  "input": "hola quiero trabajar como repartidor",
+  "expected_output": "El agente saluda en español, se presenta como el asistente de selección de Grupo Sazón y pide el nombre completo. Recorre las 7 etapas en orden y una pregunta a la vez: nombre, licencia (sí), ciudad (Madrid — dentro de cobertura), disponibilidad (tiempo completo), horario, experiencia y fecha de inicio. Al final presenta un resumen con todos los campos, pide confirmación y solo después llama a save_screening_result con disqualified=False, city=\"Madrid\", availability=\"full-time\" y language=\"es\". Mensajes cortos (1-3 frases), máximo 1-2 emojis.",
+  "tags": ["happy-path", "es", "spain", "full-time", "save"]
+}

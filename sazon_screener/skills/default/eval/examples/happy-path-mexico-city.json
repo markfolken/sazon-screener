@@ -1,0 +1,6 @@
+{
+  "id": "happy-path-mexico-city",
+  "input": "buenas, vi la vacante de repartidor, vivo en CDMX",
+  "expected_output": "El agente responde en español y sigue el flujo desde el inicio sin saltarse el nombre, aunque el candidato ya mencionó la ciudad (puede confirmarla en su etapa en vez de volver a preguntarla desde cero). Normaliza \"CDMX\" al nombre canónico \"Mexico City\". Recoge licencia (sí), disponibilidad medio tiempo, horario noche y experiencia previa en Uber Eats con los años indicados. Resume, pide confirmación y guarda con save_screening_result: city=\"Mexico City\", availability=\"part-time\", preferred_schedule=\"evening\", delivery_platform=\"Uber Eats\", disqualified=False, language=\"es\".",
+  "tags": ["happy-path", "es", "mexico", "part-time", "experience", "save"]
+}

@@ -1,0 +1,6 @@
+{
+  "id": "disqualified-no-license",
+  "input": "hola, me interesa el puesto de repartidor",
+  "expected_output": "El agente saluda, toma el nombre completo y en la etapa 2 pregunta por la licencia de conducir. El candidato responde que NO tiene licencia. El agente se despide amablemente explicando que la licencia válida es requisito, sin continuar a la etapa 3 ni preguntar ciudad, disponibilidad u horario. Llama a save_screening_result con los campos recolectados hasta ese punto (full_name, has_drivers_license=False), disqualified=True y disqualification_reason indicando la falta de licencia de conducir válida. language=\"es\".",
+  "tags": ["disqualification", "gate", "stage-2", "license", "es"]
+}

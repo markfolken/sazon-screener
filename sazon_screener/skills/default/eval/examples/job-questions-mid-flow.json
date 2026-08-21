@@ -1,0 +1,6 @@
+{
+  "id": "job-questions-mid-flow",
+  "input": "hola, antes que nada cuánto pagan?",
+  "expected_output": "El agente responde brevemente (1-2 frases) con la información del FAQ: salario competitivo basado en mercado local más propinas, que se detalla en la entrevista con RRHH, y que las propinas son 100% para el repartidor. Inmediatamente después redirige al flujo de selección y retoma la pregunta pendiente (el nombre completo si aún no lo tiene). No se desvía a temas ajenos al proceso de selección ni inventa cifras concretas de salario.",
+  "tags": ["edge-case", "faq", "redirect", "es"]
+}

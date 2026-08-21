@@ -1,0 +1,6 @@
+{
+  "id": "already-has-license-ambiguous",
+  "input": "hola, quiero el puesto de repartidor",
+  "expected_output": "En la etapa 2 el candidato responde \"estoy en trámite\" / \"in process\" (o \"la tengo vencida\") sobre la licencia. El agente trata esto como NO tener licencia válida: se despide amablemente explicando que se requiere licencia de conducir válida y que lo tendrán en cuenta más adelante. No continúa a ciudad ni al resto de etapas. Llama a save_screening_result con has_drivers_license=False, disqualified=True y disqualification_reason indicando que la licencia no es válida / está en trámite.",
+  "tags": ["disqualification", "gate", "stage-2", "license", "ambiguous", "es"]
+}

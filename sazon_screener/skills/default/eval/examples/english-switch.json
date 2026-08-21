@@ -1,0 +1,6 @@
+{
+  "id": "english-switch",
+  "input": "hi I'm looking for a delivery job",
+  "expected_output": "El agente detecta el inglés desde el primer mensaje y responde en inglés, manteniéndolo durante TODA la conversación (no vuelve al español ni mezcla idiomas). Sigue las mismas 7 etapas traducidas, una pregunta a la vez, con mensajes cortos y 1-2 emojis máximo. Al guardar con save_screening_result marca language=\"en\" junto con el resto de campos recolectados.",
+  "tags": ["language", "en", "switch", "happy-path"]
+}

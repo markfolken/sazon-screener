@@ -1,0 +1,334 @@
+"""
+AgentHarness — the single place that builds session services, artifact
+services, plugins, and Runners for sazon-screener.
+
+Standalone module: no imports from the ``nuvel`` package. This file is
+copied verbatim into every scaffolded ADK agent and must keep working when
+the agent is deployed on its own, with only ``requirements.txt`` installed.
+
+Configuration is read from environment variables:
+
+    DEV_MODE               "true"/"1"/"yes" selects in-memory services.
+    SESSION_SERVICE_URI     Postgres URI for DatabaseSessionService (prod).
+    ARTIFACT_SERVICE_URI    memory:// | file:///abs/path | gs://bucket
+    ARTIFACT_STORAGE_DIR    Fallback disk root when ARTIFACT_SERVICE_URI is
+                            unset in prod (default: /data/artifacts).
+
+Everything that builds a Runner — the gateway state-injection block, the
+streaming entrypoint, and the cron fallback — should go through
+``AgentHarness.build_runner()`` so session/artifact/plugin wiring only
+lives in one place.
+"""
+
+from __future__ import annotations
+
+import os
+import threading
+from typing import Any, Optional, Union
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
+from google.adk.agents import BaseAgent
+from google.adk.apps.app import App
+from google.adk.apps._configs import EventsCompactionConfig, ResumabilityConfig
+from google.adk.artifacts.base_artifact_service import ArtifactVersion, BaseArtifactService
+from google.adk.runners import Runner
+from google.adk.sessions.base_session_service import BaseSessionService
+from google.genai import types
+
+from sazon_screener.plugins import PLUGIN_INSTANCES, PLUGIN_PATHS
+
+
+def _normalize_to_asyncpg_uri(uri: str) -> str:
+    """Convert to asyncpg scheme and strip unsupported query args."""
+    if uri.startswith("postgresql://"):
+        uri = uri.replace("postgresql://", "postgresql+asyncpg://", 1)
+
+    parsed = urlsplit(uri)
+    qs = parse_qsl(parsed.query, keep_blank_values=True)
+    filtered = [(k, v) for (k, v) in qs if k.lower() not in {"sslmode", "channel_binding", "channelbinding"}]
+    new_query = urlencode(filtered)
+    return urlunsplit(parsed._replace(query=new_query))
+
+
+def _to_part(content: Union[types.Part, str, bytes], mime_type: Optional[str] = None) -> types.Part:
+    """Normalizes save_artifact() content into a genai Part."""
+    if isinstance(content, types.Part):
+        return content
+    if isinstance(content, bytes):
+        return types.Part(
+            inline_data=types.Blob(data=content, mime_type=mime_type or "application/octet-stream")
+        )
+    return types.Part(text=content)
+
+
+class AgentHarness:
+    """Process-wide singleton that owns session/artifact services and plugins.
+
+    Use ``AgentHarness.get(app_name)`` to obtain the shared instance, then
+    ``build_runner()`` to construct Runners — never instantiate
+    SessionService/ArtifactService/Runner by hand elsewhere in this project.
+    """
+
+    _instance: "Optional[AgentHarness]" = None
+    _lock = threading.Lock()
+
+    def __init__(self, app_name: str) -> None:
+        self.app_name = app_name
+        self.dev_mode = os.getenv("DEV_MODE", "false").lower() in ("true", "1", "yes")
+        self._session_service: Optional[BaseSessionService] = None
+        self._artifact_service: Optional[BaseArtifactService] = None
+        self._memory_service: Optional[Any] = None
+        self._memory_service_built = False
+
+    @classmethod
+    def get(cls, app_name: str) -> "AgentHarness":
+        """Returns the process-wide harness, creating it on first call.
+
+        Subsequent calls return the same instance regardless of app_name —
+        one agent process serves exactly one app.
+        """
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = cls(app_name)
+            return cls._instance
+
+    @classmethod
+    def reset(cls) -> None:
+        """Drops the cached singleton. Intended for tests only."""
+        with cls._lock:
+            cls._instance = None
+
+    # ── get_fast_api_app() compat ────────────────────────────────────
+
+    @property
+    def session_service_uri(self) -> Optional[str]:
+        """URI for get_fast_api_app(session_service_uri=...). None in dev mode."""
+        if self.dev_mode:
+            return None
+        uri = os.getenv("SESSION_SERVICE_URI")
+        if not uri:
+            raise RuntimeError("SESSION_SERVICE_URI is required in production (DEV_MODE=false).")
+        return _normalize_to_asyncpg_uri(uri)
+
+    @property
+    def artifact_service_uri(self) -> Optional[str]:
+        """URI for get_fast_api_app(artifact_service_uri=...)."""
+        return os.getenv("ARTIFACT_SERVICE_URI") or None
+
+    @property
+    def extra_plugins(self) -> list:
+        """Dotted plugin paths for get_fast_api_app(extra_plugins=...)."""
+        return PLUGIN_PATHS
+
+    # ── Memoized service instances ───────────────────────────────────
+
+    @property
+    def session_service(self) -> BaseSessionService:
+        if self._session_service is None:
+            self._session_service = self._build_session_service()
+        return self._session_service
+
+    def _build_session_service(self) -> BaseSessionService:
+        if self.dev_mode:
+            from google.adk.sessions import InMemorySessionService
+
+            return InMemorySessionService()
+
+        from google.adk.sessions import DatabaseSessionService
+
+        return DatabaseSessionService(
+            db_url=self.session_service_uri,
+            connect_args={"ssl": "require"},
+        )
+
+    @property
+    def artifact_service(self) -> BaseArtifactService:
+        if self._artifact_service is None:
+            self._artifact_service = self._build_artifact_service()
+        return self._artifact_service
+
+    def _build_artifact_service(self) -> BaseArtifactService:
+        uri = self.artifact_service_uri
+        if uri:
+            scheme = urlsplit(uri).scheme
+            if scheme == "memory":
+                from google.adk.artifacts.in_memory_artifact_service import InMemoryArtifactService
+
+                return InMemoryArtifactService()
+            if scheme == "file":
+                from google.adk.artifacts.file_artifact_service import FileArtifactService
+
+                root_dir = uri[len("file://") :] or "/data/artifacts"
+                return FileArtifactService(root_dir=root_dir)
+            if scheme == "gs":
+                from google.adk.artifacts.gcs_artifact_service import GcsArtifactService
+
+                bucket_name = urlsplit(uri).netloc
+                return GcsArtifactService(bucket_name=bucket_name)
+            raise ValueError(f"Unsupported ARTIFACT_SERVICE_URI scheme: {scheme!r} (uri={uri!r})")
+
+        if self.dev_mode:
+            from google.adk.artifacts.in_memory_artifact_service import InMemoryArtifactService
+
+            return InMemoryArtifactService()
+
+        from google.adk.artifacts.file_artifact_service import FileArtifactService
+
+        storage_dir = os.getenv("ARTIFACT_STORAGE_DIR", "/data/artifacts")
+        return FileArtifactService(root_dir=storage_dir)
+
+    @property
+    def plugins(self) -> list:
+        """Pre-configured BasePlugin instances, ordered as PLUGIN_PATHS."""
+        return PLUGIN_INSTANCES
+
+    async def memory_service(self) -> Optional[Any]:
+        """The default memory backend (OrgMemoryService) when a DB is configured.
+
+        Returns ``None`` when no org-memory DSN is set or the org-memory extra
+        isn't installed — the agent then relies on the markdown memory store.
+        Cached after the first build. Async because building the store may run
+        a migration. Pass the result to ``build_runner(memory_service=...)`` so
+        relevance-conditioned recall retrieves through it.
+        """
+        if not self._memory_service_built:
+            from sazon_screener.memory.org_backend import build_memory_service
+
+            self._memory_service = await build_memory_service()
+            self._memory_service_built = True
+        return self._memory_service
+
+    # ── Long-horizon resilience config ───────────────────────────────
+
+    @property
+    def resumability_config(self) -> ResumabilityConfig:
+        """Let a long run resume after an interruption instead of restarting.
+
+        Disable via RESUMABILITY=false when a deployment can't persist the
+        extra invocation state (e.g. a stateless demo).
+        """
+        enabled = os.getenv("RESUMABILITY", "true").lower() in ("true", "1", "yes")
+        return ResumabilityConfig(is_resumable=enabled)
+
+    @property
+    def compaction_config(self) -> EventsCompactionConfig:
+        """Roll old events into summaries so long sessions don't blow the window.
+
+        Fires on a sliding window of user turns (``compaction_interval``) with a
+        small ``overlap_size`` so summaries share context, and keeps the most
+        recent events verbatim (``event_retention_size``). Tunable via env.
+        """
+        return EventsCompactionConfig(
+            compaction_interval=int(os.getenv("COMPACTION_INTERVAL", "8")),
+            overlap_size=int(os.getenv("COMPACTION_OVERLAP", "2")),
+            event_retention_size=int(os.getenv("COMPACTION_RETENTION", "20")),
+        )
+
+    # ── App / Runner construction ────────────────────────────────────
+
+    def app_for(self, root_agent: BaseAgent) -> App:
+        """Builds an App wrapping root_agent with the full plugin chain."""
+        return App(
+            name=self.app_name,
+            root_agent=root_agent,
+            plugins=self.plugins,
+            resumability_config=self.resumability_config,
+            events_compaction_config=self.compaction_config,
+        )
+
+    def build_runner(
+        self,
+        agent: Optional[BaseAgent] = None,
+        app: Optional[App] = None,
+        **extra: Any,
+    ) -> Runner:
+        """The one way to build a Runner in this project.
+
+        Pass either `agent` (wrapped into an App via app_for) or a
+        pre-built `app`. Any extra kwargs (e.g. memory_service,
+        credential_service) are forwarded to Runner().
+        """
+        if app is None:
+            if agent is None:
+                raise ValueError("build_runner() requires either `agent` or `app`.")
+            app = self.app_for(agent)
+
+        return Runner(
+            app=app,
+            session_service=self.session_service,
+            artifact_service=self.artifact_service,
+            **extra,
+        )
+
+    # ── Versioned artifact operations ────────────────────────────────
+    # Thin, explicit wrappers over BaseArtifactService — ADK already
+    # auto-increments versions on save_artifact() and supports loading a
+    # specific version or the latest via load_artifact(version=...).
+
+    async def save_artifact(
+        self,
+        app_name: str,
+        user_id: str,
+        session_id: Optional[str],
+        artifact_id: str,
+        content: Union[types.Part, str, bytes],
+        *,
+        mime_type: Optional[str] = None,
+        custom_metadata: Optional[dict] = None,
+    ) -> int:
+        """Saves `content` as a new version of artifact_id. Returns the version number."""
+        return await self.artifact_service.save_artifact(
+            app_name=app_name,
+            user_id=user_id,
+            session_id=session_id,
+            filename=artifact_id,
+            artifact=_to_part(content, mime_type),
+            custom_metadata=custom_metadata,
+        )
+
+    async def load_artifact(
+        self,
+        app_name: str,
+        user_id: str,
+        session_id: Optional[str],
+        artifact_id: str,
+        version: Optional[int] = None,
+    ) -> Optional[types.Part]:
+        """Loads a specific version, or the latest version if version=None."""
+        return await self.artifact_service.load_artifact(
+            app_name=app_name,
+            user_id=user_id,
+            session_id=session_id,
+            filename=artifact_id,
+            version=version,
+        )
+
+    async def list_artifact_versions(
+        self,
+        app_name: str,
+        user_id: str,
+        session_id: Optional[str],
+        artifact_id: str,
+    ) -> list[ArtifactVersion]:
+        """Lists all versions of artifact_id with their metadata."""
+        return await self.artifact_service.list_artifact_versions(
+            app_name=app_name,
+            user_id=user_id,
+            session_id=session_id,
+            filename=artifact_id,
+        )
+
+    async def delete_artifact(
+        self,
+        app_name: str,
+        user_id: str,
+        session_id: Optional[str],
+        artifact_id: str,
+    ) -> None:
+        """Deletes all versions of artifact_id."""
+        await self.artifact_service.delete_artifact(
+            app_name=app_name,
+            user_id=user_id,
+            session_id=session_id,
+            filename=artifact_id,
+        )

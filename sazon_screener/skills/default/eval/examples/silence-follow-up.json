@@ -1,0 +1,6 @@
+{
+  "id": "silence-follow-up",
+  "input": "hola",
+  "expected_output": "El agente saluda y pide el nombre completo. El candidato responde con su nombre y luego deja de contestar. El agente envía un recordatorio cortés y breve (no insistente, sin repetir el saludo entero) y, si sigue el silencio, un segundo seguimiento. Tras 3 seguimientos sin respuesta cierra amablemente invitando al candidato a retomar la entrevista cuando quiera. NO llama a save_screening_result porque la entrevista quedó incompleta y no hubo descalificación en un gate.",
+  "tags": ["edge-case", "silence", "follow-up", "no-save", "es"]
+}
