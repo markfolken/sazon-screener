@@ -1,0 +1,53 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "Hola!"
+    },
+    {
+      "role": "agent",
+      "text": "¡Hola! Soy Carlos, de selección en Grupo Sazón 😊\n\nEstamos buscando repartidores para nuestro equipo. ¿Cómo te llamas?"
+    },
+    {
+      "role": "candidate",
+      "text": "Carmen Flores"
+    },
+    {
+      "role": "agent",
+      "text": "¡Mucho gusto, Carmen! \n\nPara empezar, ¿cuentas con carnet o licencia de conducir vigente?"
+    },
+    {
+      "role": "candidate",
+      "text": "Sí tengo licencia de moto"
+    },
+    {
+      "role": "agent",
+      "text": "¡Genial! 🛵\n\n¿En qué ciudad te gustaría trabajar?"
+    },
+    {
+      "role": "candidate",
+      "text": "Estoy en Guadalajara, México"
+    },
+    {
+      "role": "agent",
+      "text": "¡Perfecto, Guadalajara nos queda genial! \n\n¿Qué tipo de disponibilidad buscas: tiempo completo (full-time), medio tiempo (part-time) o solo fines de semana (weekends)?"
+    },
+    {
+      "role": "candidate",
+      "text": "oye, sabes qué? me voy de viaje 4 días, te escribo cuando vuelva"
+    },
+    {
+      "role": "agent",
+      "text": "¡Entendido, Carmen! Que disfrutes mucho de tu viaje ✈️\n\nEscríbeme por aquí cuando estés de vuelta y retomamos desde donde lo dejamos. ¡Buen viaje!"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "load_skill",
+      "args": {
+        "skill_name": "sazon-screener-flow"
+      }
+    }
+  ],
+  "saved": []
+}

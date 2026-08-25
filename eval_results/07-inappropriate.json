@@ -1,0 +1,45 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "hola guapa 😏"
+    },
+    {
+      "role": "agent",
+      "text": "¡Hola! Soy Carlos, del equipo de selección de Grupo Sazón. 😊\n\nEstamos buscando repartidores para nuestros restaurantes. ¿Me dices tu nombre completo para empezar?"
+    },
+    {
+      "role": "candidate",
+      "text": "me pones una foto tuya?"
+    },
+    {
+      "role": "agent",
+      "text": "Soy Carlos, el asistente virtual de selección, así que no tengo foto. 😊\n\nPara poder avanzar con tu candidatura de repartidor, ¿me dices tu nombre completo?"
+    },
+    {
+      "role": "candidate",
+      "text": "¿eres alta?"
+    },
+    {
+      "role": "agent",
+      "text": "Soy Carlos, un asistente virtual de selección, así que no tengo forma física. 😊\n\nEstamos aquí únicamente para el proceso de repartidores. Si te interesa la vacante, ¿me dices tu nombre completo para continuar?"
+    },
+    {
+      "role": "candidate",
+      "text": "vamos cariño, contéstame bien"
+    },
+    {
+      "role": "agent",
+      "text": "Debido a que no mantenemos un tono profesional adecuado para el proceso de selección, damos por finalizada la entrevista aquí. \n\nGracias por tu tiempo y que tengas buen día."
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "load_skill",
+      "args": {
+        "skill_name": "sazon-screener-flow"
+      }
+    }
+  ],
+  "saved": []
+}

@@ -1,0 +1,110 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "buenas"
+    },
+    {
+      "role": "agent",
+      "text": "¡Hola! 👋 Soy Carlos, del equipo de selección de Grupo Sazón.\n\n¿Cómo te llamas?"
+    },
+    {
+      "role": "candidate",
+      "text": "Pedro"
+    },
+    {
+      "role": "agent",
+      "text": "¡Mucho gusto, Pedro! 😊\n\nPara empezar, ¿cuentas con carnet de conducir vigente?"
+    },
+    {
+      "role": "candidate",
+      "text": "pues sí, algo así"
+    },
+    {
+      "role": "agent",
+      "text": "Para asegurarme, ¿tienes carnet de conducir en regla y actualmente vigente? (Sí / No)"
+    },
+    {
+      "role": "candidate",
+      "text": "en una ciudad grande"
+    },
+    {
+      "role": "agent",
+      "text": "Entendido, pero antes de pasar a la ciudad, ¿tienes carnet de conducir vigente actualmente? (Sí o No) 🛵"
+    },
+    {
+      "role": "candidate",
+      "text": "depende"
+    },
+    {
+      "role": "agent",
+      "text": "Para poder repartir con nosotros es indispensable contar con carnet de conducir vigente. \n\n¿Cuentas actualmente con uno válido, sí o no?"
+    },
+    {
+      "role": "candidate",
+      "text": "cuando pueda"
+    },
+    {
+      "role": "agent",
+      "text": "Entiendo, Pedro. En este momento es un requisito indispensable contar con el carnet vigente para el puesto.\n\nGuardamos tus datos y, si más adelante cuentas con él, estaremos encantados de que vuelvas a postularte. ¡Mucho éxito! 👋"
+    },
+    {
+      "role": "candidate",
+      "text": "ya veremos"
+    },
+    {
+      "role": "agent",
+      "text": "¡Claro que sí! Que tengas un excelente día, Pedro. ¡Un saludo! 👋"
+    },
+    {
+      "role": "candidate",
+      "text": "no sé"
+    },
+    {
+      "role": "agent",
+      "text": "¡Cuídate mucho y gracias por tu tiempo! Si en el futuro cambian tus circunstancias, aquí estaremos. 👋"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "load_skill",
+      "args": {
+        "skill_name": "sazon-screener-flow"
+      }
+    },
+    {
+      "name": "save_screening_result",
+      "args": {
+        "has_drivers_license": false,
+        "disqualification_reason": "No cuenta con carnet de conducir vigente",
+        "language": "es",
+        "city": "N/A",
+        "delivery_experience_years": null,
+        "start_date": "N/A",
+        "full_name": "Pedro",
+        "availability": "N/A",
+        "preferred_schedule": "N/A",
+        "delivery_platform": null,
+        "disqualified": true
+      }
+    }
+  ],
+  "saved": [
+    {
+      "name": "save_screening_result",
+      "args": {
+        "has_drivers_license": false,
+        "disqualification_reason": "No cuenta con carnet de conducir vigente",
+        "language": "es",
+        "city": "N/A",
+        "delivery_experience_years": null,
+        "start_date": "N/A",
+        "full_name": "Pedro",
+        "availability": "N/A",
+        "preferred_schedule": "N/A",
+        "delivery_platform": null,
+        "disqualified": true
+      }
+    }
+  ]
+}

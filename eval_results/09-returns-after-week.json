@@ -1,0 +1,46 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "Ya volví! seguimos?"
+    },
+    {
+      "role": "agent",
+      "text": "¡Bienvenida de vuelta, Carmen! Espero que hayas disfrutado del viaje 😊\n\n¡Claro que sí! Nos habíamos quedado en tu disponibilidad: ¿buscas tiempo completo, medio tiempo o solo fines de semana?"
+    },
+    {
+      "role": "candidate",
+      "text": "Tiempo completo"
+    },
+    {
+      "role": "agent",
+      "text": "¡Anotado! \n\n¿Qué horario prefieres para tus turnos: mañana, tarde, noche o tienes disponibilidad flexible?"
+    },
+    {
+      "role": "candidate",
+      "text": "Turno de tarde"
+    },
+    {
+      "role": "agent",
+      "text": "¡Perfecto, turno de tarde! \n\n¿Tienes experiencia previa como repartidora? Si es así, ¿cuántos años y en qué plataforma? (Si no tienes experiencia, no pasa nada)."
+    },
+    {
+      "role": "candidate",
+      "text": "Un año en DiDi"
+    },
+    {
+      "role": "agent",
+      "text": "¡Excelente, 1 año en DiDi suma bastante! 👏\n\nPor último, ¿a partir de qué fecha podrías empezar a trabajar con nosotros?"
+    },
+    {
+      "role": "candidate",
+      "text": "La próxima semana"
+    },
+    {
+      "role": "agent",
+      "text": "¡Súper! Déjame confirmar que tengo todos tus datos correctos:\n\n- **Nombre:** Carmen Flores\n- **Licencia:** Sí\n- **Ciudad:** Guadalajara\n- **Disponibilidad:** Tiempo completo\n- **Horario:** Tarde\n- **Experiencia:** 1 año en DiDi\n- **Inicio:** La próxima semana\n\n¿Es todo correcto? 😊"
+    }
+  ],
+  "tool_calls": [],
+  "saved": []
+}

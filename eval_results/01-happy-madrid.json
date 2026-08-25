@@ -1,0 +1,118 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "Hola"
+    },
+    {
+      "role": "agent",
+      "text": "¡Hola! Soy Carlos, del equipo de selección de Grupo Sazón 🛵\n\nEstamos buscando repartidores para nuestro equipo. Para empezar, ¿me dices tu nombre completo?"
+    },
+    {
+      "role": "candidate",
+      "text": "Me llamo Javier Mendoza Ruiz"
+    },
+    {
+      "role": "agent",
+      "text": "¡Mucho gusto, Javier! Encantado de saludarte.\n\nPara este puesto es imprescindible contar con carnet de conducir vigente. ¿Tienes carnet de conducir?"
+    },
+    {
+      "role": "candidate",
+      "text": "Sí, tengo carné de conducir B"
+    },
+    {
+      "role": "agent",
+      "text": "¡Perfecto, Javier! 👍\n\n¿En qué ciudad te gustaría trabajar con nosotros?"
+    },
+    {
+      "role": "candidate",
+      "text": "Vivo en Madrid"
+    },
+    {
+      "role": "agent",
+      "text": "¡Genial! Madrid es una de nuestras zonas activas de reparto 🛵\n\n¿Qué tipo de disponibilidad buscas: jornada completa (*full-time*), media jornada (*part-time*) o fines de semana?"
+    },
+    {
+      "role": "candidate",
+      "text": "A tiempo completo"
+    },
+    {
+      "role": "agent",
+      "text": "¡Apuntado! Jornada completa.\n\nEn cuanto a horarios, ¿qué turno prefieres: mañana, tarde, noche o flexible?"
+    },
+    {
+      "role": "candidate",
+      "text": "Por la mañana"
+    },
+    {
+      "role": "agent",
+      "text": "¡Perfecto, turno de mañana!\n\n¿Tienes experiencia previa como repartidor? Si es así, ¿cuántos años y en qué empresa o plataforma?"
+    },
+    {
+      "role": "candidate",
+      "text": "Dos años repartiendo con Glovo"
+    },
+    {
+      "role": "agent",
+      "text": "¡Muy buena experiencia con Glovo! Nos viene genial 👍\n\nPor último, ¿a partir de qué fecha podrías empezar a trabajar con nosotros?"
+    },
+    {
+      "role": "candidate",
+      "text": "El próximo lunes"
+    },
+    {
+      "role": "agent",
+      "text": "¡Excelente! Ya tengo todos tus datos. Te hago un resumen rápido:\n\n- **Nombre:** Javier Mendoza Ruiz\n- **Carnet de conducir:** Sí\n- **Ciudad:** Madrid\n- **Disponibilidad:** Tiempo completo\n- **Turno:** Mañana\n- **Experiencia:** 2 años (Glovo)\n- **Fecha de inicio:** Próximo lunes\n\n¿Es todo correcto?"
+    },
+    {
+      "role": "candidate",
+      "text": "Sí, todo correcto, gracias"
+    },
+    {
+      "role": "agent",
+      "text": "¡Muchísimas gracias, Javier! Ya he registrado tu candidatura.\n\nEl equipo de Recursos Humanos se pondrá en contacto contigo muy pronto para los siguientes pasos. ¡Mucho éxito y que tengas un excelente día! 🛵✨"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "load_skill",
+      "args": {
+        "skill_name": "sazon-screener-flow"
+      }
+    },
+    {
+      "name": "save_screening_result",
+      "args": {
+        "disqualified": false,
+        "language": "es",
+        "disqualification_reason": null,
+        "availability": "full-time",
+        "has_drivers_license": true,
+        "delivery_platform": "Glovo",
+        "delivery_experience_years": 2,
+        "preferred_schedule": "morning",
+        "full_name": "Javier Mendoza Ruiz",
+        "city": "Madrid",
+        "start_date": "Próximo lunes"
+      }
+    }
+  ],
+  "saved": [
+    {
+      "name": "save_screening_result",
+      "args": {
+        "disqualified": false,
+        "language": "es",
+        "disqualification_reason": null,
+        "availability": "full-time",
+        "has_drivers_license": true,
+        "delivery_platform": "Glovo",
+        "delivery_experience_years": 2,
+        "preferred_schedule": "morning",
+        "full_name": "Javier Mendoza Ruiz",
+        "city": "Madrid",
+        "start_date": "Próximo lunes"
+      }
+    }
+  ]
+}

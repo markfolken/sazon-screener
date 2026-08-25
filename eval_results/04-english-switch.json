@@ -1,0 +1,77 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "Hola"
+    },
+    {
+      "role": "agent",
+      "text": "¡Hola! 👋 Soy Carlos, del equipo de selección de Grupo Sazón.\n\n¿Cómo te llamas?"
+    },
+    {
+      "role": "candidate",
+      "text": "Marta Ibáñez"
+    },
+    {
+      "role": "agent",
+      "text": "¡Mucho gusto, Marta! 😊 \n\nPara empezar, ¿cuentas con carnet o licencia de conducir vigente?"
+    },
+    {
+      "role": "candidate",
+      "text": "Yes sorry, I switch to English — yes I have a driving license"
+    },
+    {
+      "role": "agent",
+      "text": "No problem at all! 😊 \n\nWhich city are you located in?"
+    },
+    {
+      "role": "candidate",
+      "text": "I'm in Valencia"
+    },
+    {
+      "role": "agent",
+      "text": "Great, we have open positions in Valencia! 🛵\n\nWhat type of availability are you looking for: full-time, part-time, or weekends?"
+    },
+    {
+      "role": "candidate",
+      "text": "Part-time please"
+    },
+    {
+      "role": "agent",
+      "text": "Got it, part-time! 👍\n\nWhat shift do you prefer: morning, afternoon, evening, or flexible?"
+    },
+    {
+      "role": "candidate",
+      "text": "Evenings are better for me"
+    },
+    {
+      "role": "agent",
+      "text": "Noted, evenings it is! 🌙\n\nDo you have any previous delivery experience? If so, how many years and with which platforms?"
+    },
+    {
+      "role": "candidate",
+      "text": "I did deliveries for Uber Eats about a year"
+    },
+    {
+      "role": "agent",
+      "text": "That's great experience! 👍\n\nWhen would you be available to start with us?"
+    },
+    {
+      "role": "candidate",
+      "text": "I can start in two weeks"
+    },
+    {
+      "role": "agent",
+      "text": "Awesome, thank you Marta! Let me quickly confirm all your details:\n\n- **Name:** Marta Ibáñez\n- **City:** Valencia\n- **Driver's license:** Yes\n- **Availability:** Part-time (Evenings)\n- **Experience:** 1 year with Uber Eats\n- **Start date:** In 2 weeks\n\nDoes everything look correct? 😊"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "load_skill",
+      "args": {
+        "skill_name": "sazon-screener-flow"
+      }
+    }
+  ],
+  "saved": []
+}

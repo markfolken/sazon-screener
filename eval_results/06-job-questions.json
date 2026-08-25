@@ -1,0 +1,85 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "Hola, vi el anuncio"
+    },
+    {
+      "role": "agent",
+      "text": "¡Hola! Qué gusto saludarte. Soy Carlos, del equipo de selección de Grupo Sazón 🛵\n\n¿Me podrías decir tu nombre completo para comenzar?"
+    },
+    {
+      "role": "candidate",
+      "text": "Rubén Ortiz"
+    },
+    {
+      "role": "agent",
+      "text": "¡Mucho gusto, Rubén! Encantado de hablar contigo.\n\n¿Cuentas con licencia de conducir vigente?"
+    },
+    {
+      "role": "candidate",
+      "text": "Sí, tengo coche y carné"
+    },
+    {
+      "role": "agent",
+      "text": "¡Perfecto, Rubén! 🚗\n\n¿En qué ciudad te gustaría trabajar con nosotros?"
+    },
+    {
+      "role": "candidate",
+      "text": "antes de seguir — ¿cuánto se cobra? ¿y las propinas?"
+    },
+    {
+      "role": "agent",
+      "text": "El salario es competitivo según el mercado local y se detalla con RRHH en la siguiente fase, y las propinas son 100% tuyas 💰\n\nPara seguir con el proceso, ¿en qué ciudad te gustaría trabajar con nosotros?"
+    },
+    {
+      "role": "candidate",
+      "text": "estoy en Sevilla"
+    },
+    {
+      "role": "agent",
+      "text": "¡Genial, Sevilla nos viene estupendo! 🛵\n\n¿Qué disponibilidad tienes: tiempo completo, medio tiempo o fines de semana?"
+    },
+    {
+      "role": "candidate",
+      "text": "¿y qué horario hay exactamente?"
+    },
+    {
+      "role": "agent",
+      "text": "Los turnos son rotativos y a tiempo completo son 40 horas a la semana 🕒\n\nPara adaptarnos mejor, ¿te interesaría tiempo completo, medio tiempo o solo fines de semana?"
+    },
+    {
+      "role": "candidate",
+      "text": "fines de trabajo mejor para mí, es decir, fin de semana"
+    },
+    {
+      "role": "agent",
+      "text": "¡Entendido, fines de semana anotado! 👍\n\n¿En qué horario preferirías repartir: mañanas, tardes, noches o tienes un horario flexible?"
+    },
+    {
+      "role": "candidate",
+      "text": "3 años en Deliveroo"
+    },
+    {
+      "role": "agent",
+      "text": "¡Vaya experiencia, 3 años en Deliveroo está genial! 👏\n\nPara tenerlo todo claro, ¿en qué horario preferirías repartir los fines de semana: mañanas, tardes, noches o te va bien cualquier horario flexible?"
+    },
+    {
+      "role": "candidate",
+      "text": "para ya mismo"
+    },
+    {
+      "role": "agent",
+      "text": "¡Excelente que puedas empezar de inmediato! 🚀\n\nSolo nos queda un detalle: en cuanto a turnos para los fines de semana, ¿prefieres mañanas, tardes, noches o tienes horario flexible?"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "load_skill",
+      "args": {
+        "skill_name": "sazon-screener-flow"
+      }
+    }
+  ],
+  "saved": []
+}

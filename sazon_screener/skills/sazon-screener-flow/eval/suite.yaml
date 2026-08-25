@@ -1,6 +1,6 @@
 name: sazon-screener-eval
 description: Eval suite for Grupo Sazón candidate screening agent — tests happy path, disqualification gates, language switching, edge cases
-skill: default
+skill: sazon-screener-flow
 evaluators:
   - llm-judge:
       rubric:

@@ -1,0 +1,70 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "Buenas tardes"
+    },
+    {
+      "role": "agent",
+      "text": "¡Buenas tardes! Soy Carlos, del equipo de selección de Grupo Sazón 😊 \n\n¿Me podrías decir tu nombre completo para comenzar?"
+    },
+    {
+      "role": "candidate",
+      "text": "Laura Sánchez"
+    },
+    {
+      "role": "agent",
+      "text": "¡Mucho gusto, Laura! Encantado de saludarte.\n\nPara empezar, ¿cuentas con carnet o licencia de conducir vigente?"
+    },
+    {
+      "role": "candidate",
+      "text": "No, no tengo carné"
+    },
+    {
+      "role": "agent",
+      "text": "Entiendo, Laura. Lamentablemente, para este puesto es un requisito imprescindible contar con carnet de conducir vigente. \n\nAgradecemos mucho tu tiempo e interés en Grupo Sazón, y guardamos tus datos por si abrimos vacantes que se ajusten a tu perfil más adelante. ¡Te deseo mucho éxito!"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "load_skill",
+      "args": {
+        "skill_name": "sazon-screener-flow"
+      }
+    },
+    {
+      "name": "save_screening_result",
+      "args": {
+        "start_date": "N/A",
+        "city": "N/A",
+        "disqualification_reason": "No cuenta con licencia/carnet de conducir vigente",
+        "preferred_schedule": "N/A",
+        "delivery_platform": null,
+        "has_drivers_license": false,
+        "full_name": "Laura Sánchez",
+        "disqualified": true,
+        "language": "es",
+        "delivery_experience_years": null,
+        "availability": "N/A"
+      }
+    }
+  ],
+  "saved": [
+    {
+      "name": "save_screening_result",
+      "args": {
+        "start_date": "N/A",
+        "city": "N/A",
+        "disqualification_reason": "No cuenta con licencia/carnet de conducir vigente",
+        "preferred_schedule": "N/A",
+        "delivery_platform": null,
+        "has_drivers_license": false,
+        "full_name": "Laura Sánchez",
+        "disqualified": true,
+        "language": "es",
+        "delivery_experience_years": null,
+        "availability": "N/A"
+      }
+    }
+  ]
+}

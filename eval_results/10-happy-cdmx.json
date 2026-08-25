@@ -1,0 +1,118 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "Qué tal"
+    },
+    {
+      "role": "agent",
+      "text": "¡Hola! 👋 Soy Carlos, del equipo de selección de Grupo Sazón.\n\nEstamos buscando repartidores para nuestro equipo. ¿Cómo te llamas?"
+    },
+    {
+      "role": "candidate",
+      "text": "Diego Hernández, mucho gusto"
+    },
+    {
+      "role": "agent",
+      "text": "¡Mucho gusto, Diego! Encantado de saludarte. 😊\n\nPara empezar, ¿cuentas con carnet o licencia de conducir vigente?"
+    },
+    {
+      "role": "candidate",
+      "text": "Simón, tengo licencia vigente"
+    },
+    {
+      "role": "agent",
+      "text": "¡Perfecto, Diego! 🛵\n\n¿En qué ciudad te encuentras viviendo actualmente?"
+    },
+    {
+      "role": "candidate",
+      "text": "CDMX, por la delegación Benito Juárez"
+    },
+    {
+      "role": "agent",
+      "text": "¡Excelente! Cubrimos esa zona en CDMX. 👍\n\n¿Qué tipo de disponibilidad buscas: tiempo completo, medio tiempo o solo fines de semana?"
+    },
+    {
+      "role": "candidate",
+      "text": "Medio tiempo"
+    },
+    {
+      "role": "agent",
+      "text": "Apuntado, medio tiempo. 👌\n\n¿Qué horario preferirías: mañanas, tardes, noches o tienes horario flexible?"
+    },
+    {
+      "role": "candidate",
+      "text": "Como me quede, no importa"
+    },
+    {
+      "role": "agent",
+      "text": "¡Genial, flexible entonces! 🙌\n\n¿Tienes experiencia previa como repartidor? Si es así, ¿cuántos años y en qué plataforma o empresa has trabajado?"
+    },
+    {
+      "role": "candidate",
+      "text": "6 meses en Rappi"
+    },
+    {
+      "role": "agent",
+      "text": "¡Buenísimo, 6 meses en Rappi! 📦\n\n¿A partir de qué fecha podrías empezar a trabajar con nosotros?"
+    },
+    {
+      "role": "candidate",
+      "text": "En cuanto cierren esta semana"
+    },
+    {
+      "role": "agent",
+      "text": "¡Excelente! Déjame repasar tus datos para confirmar que todo esté correcto:\n\n- **Nombre:** Diego Hernández\n- **Licencia vigente:** Sí\n- **Ciudad:** Ciudad de México (CDMX)\n- **Disponibilidad:** Medio tiempo\n- **Horario:** Flexible\n- **Experiencia:** 6 meses en Rappi\n- **Fecha de inicio:** Al cerrar esta semana\n\n¿Es todo correcto?"
+    },
+    {
+      "role": "candidate",
+      "text": "Va, confirmado todo"
+    },
+    {
+      "role": "agent",
+      "text": "¡Listo, Diego! Ya registré toda tu información. 🎉\n\nEl equipo de Recursos Humanos revisará tu perfil y se pondrá en contacto contigo muy pronto para los siguientes pasos. \n\n¡Mucho éxito y gracias por tu interés en Grupo Sazón! Que tengas un excelente día. 👋"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "load_skill",
+      "args": {
+        "skill_name": "sazon-screener-flow"
+      }
+    },
+    {
+      "name": "save_screening_result",
+      "args": {
+        "disqualification_reason": null,
+        "has_drivers_license": true,
+        "language": "es",
+        "preferred_schedule": "flexible",
+        "disqualified": false,
+        "availability": "part-time",
+        "full_name": "Diego Hernández",
+        "delivery_experience_years": 0.5,
+        "start_date": "Al cerrar esta semana",
+        "city": "Ciudad de México",
+        "delivery_platform": "Rappi"
+      }
+    }
+  ],
+  "saved": [
+    {
+      "name": "save_screening_result",
+      "args": {
+        "disqualification_reason": null,
+        "has_drivers_license": true,
+        "language": "es",
+        "preferred_schedule": "flexible",
+        "disqualified": false,
+        "availability": "part-time",
+        "full_name": "Diego Hernández",
+        "delivery_experience_years": 0.5,
+        "start_date": "Al cerrar esta semana",
+        "city": "Ciudad de México",
+        "delivery_platform": "Rappi"
+      }
+    }
+  ]
+}

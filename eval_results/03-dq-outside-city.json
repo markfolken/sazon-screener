@@ -1,0 +1,78 @@
+{
+  "transcript": [
+    {
+      "role": "candidate",
+      "text": "Hola, buenos días"
+    },
+    {
+      "role": "agent",
+      "text": "¡Hola! Buenos días. Soy Carlos, del equipo de selección de Grupo Sazón. 😊\n\n¿Me podrías decir tu nombre completo para empezar?"
+    },
+    {
+      "role": "candidate",
+      "text": "Álvaro Giménez"
+    },
+    {
+      "role": "agent",
+      "text": "¡Mucho gusto, Álvaro! \n\nPara empezar, ¿cuentas con carnet o licencia de conducir vigente?"
+    },
+    {
+      "role": "candidate",
+      "text": "Sí, tengo el permiso B desde hace 5 años"
+    },
+    {
+      "role": "agent",
+      "text": "Genial, perfecto. 👍\n\n¿En qué ciudad te gustaría trabajar como repartidor?"
+    },
+    {
+      "role": "candidate",
+      "text": "Vivo en Zaragoza"
+    },
+    {
+      "role": "agent",
+      "text": "Muchas gracias por tu interés, Álvaro. Lamentablemente en este momento solo operamos en Madrid, Barcelona, Valencia y Sevilla en España.\n\nGuardamos tus datos por si abrimos vacantes en Zaragoza en el futuro. ¡Te deseo mucho éxito! 👋"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "load_skill",
+      "args": {
+        "skill_name": "sazon-screener-flow"
+      }
+    },
+    {
+      "name": "save_screening_result",
+      "args": {
+        "start_date": "n/a",
+        "availability": "n/a",
+        "preferred_schedule": "n/a",
+        "full_name": "Álvaro Giménez",
+        "disqualified": true,
+        "language": "es",
+        "has_drivers_license": true,
+        "disqualification_reason": "Outside service area (Zaragoza)",
+        "delivery_platform": null,
+        "delivery_experience_years": null,
+        "city": "Zaragoza"
+      }
+    }
+  ],
+  "saved": [
+    {
+      "name": "save_screening_result",
+      "args": {
+        "start_date": "n/a",
+        "availability": "n/a",
+        "preferred_schedule": "n/a",
+        "full_name": "Álvaro Giménez",
+        "disqualified": true,
+        "language": "es",
+        "has_drivers_license": true,
+        "disqualification_reason": "Outside service area (Zaragoza)",
+        "delivery_platform": null,
+        "delivery_experience_years": null,
+        "city": "Zaragoza"
+      }
+    }
+  ]
+}

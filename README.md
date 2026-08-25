@@ -222,7 +222,7 @@ sazon-screener/
 │   ├── agent.py                     # ★ LlmAgent + LazySkillToolset + guardrail callbacks
 │   ├── prompt/instructions.py       # ★ Identity, tone, language rules
 │   ├── tools/save_screening.py      # ★ FunctionTool → data/screenings/*.json
-│   ├── skills/default/SKILL.md      # ★ Screening flow — stages, gates, output schema
+│   ├── skills/sazon-screener-flow/SKILL.md  # ★ Screening flow — stages, gates, output schema
 │   ├── config/llm.py                # ★ LiteLlm → OpenRouter → gemini-3.7-flash
 │   ├── gateways/                    # Telegram webhook, commands, voice transcription
 │   ├── plugins/                     # Cost guard, trace, context window, cache, …
