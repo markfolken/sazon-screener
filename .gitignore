@@ -4,4 +4,4 @@ __pycache__/
 *.pyc
 .hermes/
 data/screenings/
-traces/
+traces/.adk/
