@@ -42,7 +42,7 @@ ADK owns the conversation: session state, tool dispatch, the plugin lifecycle. L
 | File | Role |
 |---|---|
 | `sazon_screener/agent.py` | The `LlmAgent` — model, instruction provider, tool list, guardrail callbacks. Also defines `LazySkillToolset`, which re-reads `SKILL.md` files on mtime change so skills can be edited without restarting the process. |
-| `sazon_screener/prompt/instructions.py` | Goals + constraints prompt (screening flow lives in `SKILL.md`) — tone rules, the language-switch rule, and the job FAQ the agent answers from. |
+| `sazon_screener/prompt/instructions.py` | Identity prompt ("Carlos") — tone, messaging style, language-switch rule. Screening flow lives in `SKILL.md`. |
 | `sazon_screener/tools/save_screening.py` | `FunctionTool` wrapping `save_screening_result(...)`. Typed signature → ADK derives the schema the model must fill. Writes one timestamped JSON file per screening. |
 | `sazon_screener/config/llm.py` | `FAST_MODEL` / `REASONING_MODEL` as `LiteLlm` instances pointed at OpenRouter, plus retry and timeout config. |
 | `run_adk.py` | FastAPI entrypoint. Mounts the ADK app, API-key auth, health checks, and the Telegram gateway router. |
@@ -220,7 +220,7 @@ sazon-screener/
 │
 ├── sazon_screener/
 │   ├── agent.py                     # ★ LlmAgent + LazySkillToolset + guardrail callbacks
-│   ├── prompt/instructions.py       # ★ Goals + constraints, tone, FAQ
+│   ├── prompt/instructions.py       # ★ Identity, tone, language rules
 │   ├── tools/save_screening.py      # ★ FunctionTool → data/screenings/*.json
 │   ├── skills/default/SKILL.md      # ★ Screening flow — stages, gates, output schema
 │   ├── config/llm.py                # ★ LiteLlm → OpenRouter → gemini-3.7-flash

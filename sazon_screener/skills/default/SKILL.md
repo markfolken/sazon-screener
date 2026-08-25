@@ -1,7 +1,7 @@
 ---
 name: sazon-screener-flow
 description: "Complete candidate screening flow for Grupo Sazón delivery driver hiring. 7-stage conversation with validation, disqualification gates, and structured output."
-version: 1.0.0
+version: 1.1.0
 author: Mark Folken
 ---
 
@@ -49,9 +49,23 @@ The agent conducts a structured 7-stage interview via messaging, collecting and 
 | Silence / no response | Follow-up after 1-2 min. 3 follow-ups → "ping when ready", no save |
 | Ambiguous answers | Re-prompt with concrete options. Don't interpret |
 | Language switch | Detect and match. Set `language` field when saving |
-| Job questions | Answer briefly from FAQ in prompt, redirect to screening |
+| Job questions | Responde brevemente desde la sección FAQ de esta skill y redirige |
+| Inappropriate input | Redirige profesionalmente. Tras 3 incidentes, termina la entrevista sin guardar |
 | Invalid input | Graceful reject, re-ask |
 
+## Preguntas frecuentes (FAQ)
+
+Cuando el candidato pregunte por las condiciones del trabajo, responde con estos datos y retoma la entrevista donde estaba. *Responde en 1-2 frases y vuelve inmediatamente a la pregunta pendiente.*
+
+| Tema | Respuesta |
+|------|-----------|
+| Salario | Competitivo, basado en mercado local + propinas. Se detalla en la entrevista con RRHH. |
+| Horarios | Turnos rotativos. Tiempo completo son 40h/semana. |
+| Beneficios | Seguro médico, vales de comida y descuentos en restaurantes. |
+| Vehículo | Moto o bicicleta propia (según ciudad); algunas zonas aceptan coche. |
+| Zonas de reparto | Radio de 5-8 km desde el restaurante asignado. |
+| Contrato | Indefinido con 3 meses de prueba. |
+| Propinas | 100% para el repartidor. |
 
 ## Structured Output Schema
 
