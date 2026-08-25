@@ -107,6 +107,32 @@ DEV_MODE=true adk web .
 
 Pick `sazon_screener` from the agent dropdown.
 
+### Voice interviews (Gemini Live API)
+
+When `STREAMING_ENABLED=true`, the server exposes a WebSocket at `/ws/{user_id}/{session_id}` for real-time spoken conversation with Carlos. The candidate can interrupt mid-response; transcripts flow both directions via Google's Live API.
+
+**Requirements:**
+- A **Google AI Studio API key** (free tier works) — https://aistudio.google.com
+- The Live API talks to Google directly; it does NOT use OpenRouter.
+- Text chat continues to use `OPENROUTER_API_KEY` as before.
+
+**Env setup** (in `.env`):
+
+```bash
+STREAMING_ENABLED=true
+GOOGLE_API_KEY=your_google_ai_studio_key_here
+```
+
+**Running:**
+
+```bash
+STREAMING_ENABLED=true DEV_MODE=true python run_adk.py
+```
+
+**Testing:** open http://localhost:8000/static/test_client.html in Chrome, allow mic access, and speak. Audio is PCM 16 kHz input / 24 kHz output — format handled by the bundled test client.
+
+**Model:** defaults to `gemini-3.1-flash-live-preview`. Live models rotate through preview → GA → deprecation relatively fast; if you hit a model-not-found error, check https://ai.google.dev/gemini-api/docs/live for current model IDs.
+
 **Endpoints:** `GET /health` (public), `POST /run_sse` (streaming, auth required when `API_KEY` is set).
 
 **Telegram:** set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_WEBHOOK_SECRET` in `.env`, expose the host, point your bot's webhook at `/gateways/telegram`.

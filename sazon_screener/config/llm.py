@@ -39,4 +39,4 @@ REASONING_MODEL = LiteLlm(
 
 # Streaming model — Gemini directly (not via LiteLLM).
 # Only used when STREAMING_ENABLED=true.
-LIVE_MODEL = os.getenv("LIVE_MODEL", "gemini-2.0-flash-live-001")
+LIVE_MODEL = os.getenv("LIVE_MODEL", "gemini-3.1-flash-live-preview")
