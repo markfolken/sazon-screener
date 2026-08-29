@@ -1,0 +1,1 @@
+"""Screening analytics — text reports, HTML dashboards, and HTTP server."""

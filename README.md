@@ -175,6 +175,21 @@ nuvel traces errors --recent 10  # Tail recent errors
 
 Auto-discovers `./traces/`, `generated-agents/*/traces/`, and `$TRACE_DIR`. Pass `--source` for custom paths.
 
+### Screening Analytics
+
+```bash
+# Text report to stdout
+python -m sazon_screener.analytics.report
+
+# Standalone HTML report
+python -m sazon_screener.analytics.report --html
+
+# Live dashboard on http://localhost:8766
+python -m sazon_screener.analytics.report --serve
+```
+
+Metrics: total/qualified/disqualified, funnel drop-off by stage, city distribution, daily trends, disqualification reasons, language split, and estimated cost from traces.
+
 ---
 
 ## Evaluation
@@ -323,6 +338,8 @@ This is paraphrased from eval transcripts (01-happy-madrid, 10-happy-cdmx). It s
 - Telegram gateway: wired at `/gateways/telegram` with webhook secret validation.
 - Plugin chain: cost guard (per-turn pricing), trace (JSONL), context window, guardrails (exfil/command), reflection retry, cache.
 - Record/replay regression tests: ADK `RecordingsPlugin` / `ReplayPlugin`.
+- **Sentiment analysis:** heuristic detection of frustrated/confused candidates. Automatically flags escalation-worthy messages and adjusts agent tone.
+- **Analytics dashboard:** text, HTML, and live-HTTP-server modes with funnel, city distribution, disqualification breakdown, daily trends, and cost tracking.
 
 ---
 
@@ -338,14 +355,17 @@ sazon-screener/
 ├── CLAUDE.md                        # Claude Code project context
 │
 ├── sazon_screener/
-│   ├── agent.py                     # LlmAgent + LazySkillToolset + guardrail callbacks
+│   ├── agent.py                     # LlmAgent + LazySkillToolset + guardrail + sentiment callbacks
 │   ├── prompt/instructions.py       # Identity, tone, language rules (prompt)
 │   ├── tools/save_screening.py      # FunctionTool → data/screenings/*.json
+│   ├── tools/mark_stage.py          # Track completed screening stages
+│   ├── tools/schedule_followup.py   # Schedule re-engagement cron jobs
 │   ├── skills/sazon-screener-flow/SKILL.md  # Screening SOP: stages, gates, FAQ, output schema
 │   ├── config/llm.py                # LiteLlm → OpenRouter → gemini-3.7-flash
 │   ├── gateways/                    # Telegram webhook, commands, voice transcription
 │   ├── plugins/                     # Cost guard, trace, context window, cache, …
-│   └── guardrails/                  # exfil_guard, command_guard
+│   ├── guardrails/                  # exfil_guard, command_guard, sentiment_guard
+│   └── analytics/                   # Screening analytics (text/HTML/server)
 │
 ├── tests/test_agent.py              # Record/replay golden conversation tests
 ├── tests/recordings/                # Golden YAML recordings (empty — run RECORD=true to populate)

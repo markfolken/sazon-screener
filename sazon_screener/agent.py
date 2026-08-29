@@ -18,6 +18,7 @@ from .config.paths import skills_dir
 from .config.seed import seed_volume_if_empty
 from .guardrails.command_guard import command_guard_callback
 from .guardrails.exfil_guard import exfil_guard
+from .guardrails.sentiment_guard import sentiment_callback
 from .memory.review_fork import review_fork_callback
 from .tools import get_tools
 from .prompt.instructions import get_agent_instruction
@@ -97,7 +98,7 @@ root_agent = LlmAgent(
     description="AI candidate screening agent for Grupo Sazon - a restaurant chain hiring delivery drivers across Spain and Mexico",
     instruction=get_agent_instruction,
     tools=_build_tools(),
-    before_tool_callback=[exfil_guard, command_guard_callback],
+    before_tool_callback=[sentiment_callback, exfil_guard, command_guard_callback],
     # Fire-and-forget memory self-improvement judge (opt-in via
     # NUVEL_MEMORY_REVIEW_FORK=1). Never blocks the reply; the judge runs on
     # the SiblingRunner plugin and has no after_agent chain of its own.
