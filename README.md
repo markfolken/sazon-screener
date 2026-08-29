@@ -85,7 +85,7 @@ Written to `data/screenings/20260821_173000_maría_lópez_garcía.json`.
 Requirements: Python 3.11+, an OpenRouter API key.
 
 ```bash
-cd generated-agents/sazon-screener
+cd sazon-screener
 
 python3 -m venv .venv
 source .venv/bin/activate
@@ -136,6 +136,31 @@ STREAMING_ENABLED=true DEV_MODE=true python run_adk.py
 **Endpoints:** `GET /health` (public), `POST /run_sse` (streaming, auth required when `API_KEY` is set).
 
 **Telegram:** set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_WEBHOOK_SECRET` in `.env`, expose the host, point your bot's webhook at `/gateways/telegram`.
+
+### Trace Dashboard
+
+Every agent interaction is recorded by the built-in `TracePlugin` as structured JSONL events — user messages, LLM requests with latency and token counts, tool calls with duration, errors, lifecycle. Files land in `./traces/` automatically.
+
+Use `nuvel traces` to browse them without digging through raw JSON files. It ships with `nuvel-cli` (already in `requirements.txt`).
+
+```bash
+# List all runs across agents with start time, event count, duration
+nuvel traces list
+
+# Show the full event timeline for a specific run (by id prefix)
+nuvel traces show <trace_or_session_id>
+
+# Aggregate stats: total events, sessions, durations, estimated cost per agent
+nuvel traces stats
+
+# Summarize errors — LLM errors, tool exceptions, failed tool results
+nuvel traces errors
+
+# Tail recent errors with their messages
+nuvel traces errors --recent 10
+```
+
+Auto-discovers `./traces/`, `generated-agents/*/traces/`, and `$TRACE_DIR`. Pass `--source` for custom paths.
 
 ---
 
