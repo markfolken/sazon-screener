@@ -4,5 +4,6 @@ __pycache__/
 *.pyc
 .hermes/
 data/screenings/
+data/stage_tracker/
 traces/
 traces/.adk/
