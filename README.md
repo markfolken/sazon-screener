@@ -141,23 +141,27 @@ STREAMING_ENABLED=true DEV_MODE=true python run_adk.py
 
 Every agent interaction is recorded by the built-in `TracePlugin` as structured JSONL events — user messages, LLM requests with latency and token counts, tool calls with duration, errors, lifecycle. Files land in `./traces/` automatically.
 
-Use `nuvel traces` to browse them without digging through raw JSON files. It ships with `nuvel-cli` (already in `requirements.txt`).
+**Web dashboard** (default port 8765):
 
 ```bash
-# List all runs across agents with start time, event count, duration
-nuvel traces list
+# Open the browser-based dashboard
+nuvel dashboard
 
-# Show the full event timeline for a specific run (by id prefix)
-nuvel traces show <trace_or_session_id>
+# With custom port or source
+nuvel dashboard --port 8765 --source ./traces
 
-# Aggregate stats: total events, sessions, durations, estimated cost per agent
-nuvel traces stats
+# Preview with bundled demo data (no real traces needed)
+nuvel dashboard --demo
+```
 
-# Summarize errors — LLM errors, tool exceptions, failed tool results
-nuvel traces errors
+**CLI viewer** (same data, terminal-friendly):
 
-# Tail recent errors with their messages
-nuvel traces errors --recent 10
+```bash
+nuvel traces list           # List all runs
+nuvel traces show <id>      # Full event timeline
+nuvel traces stats          # Aggregate stats per agent
+nuvel traces errors         # Summarize errors
+nuvel traces errors --recent 10  # Tail recent errors
 ```
 
 Auto-discovers `./traces/`, `generated-agents/*/traces/`, and `$TRACE_DIR`. Pass `--source` for custom paths.
