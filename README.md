@@ -87,12 +87,21 @@ Requirements: Python 3.11+, an OpenRouter API key.
 ```bash
 cd sazon-screener
 
+# Using uv (recommended — faster)
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+
+# Or with standard pip
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
 cp .env.example .env      # add your OPENROUTER_API_KEY
 # edit .env
+
+# Diagnose your install
+nuvel doctor
 
 DEV_MODE=true python run_adk.py
 ```
@@ -175,6 +184,19 @@ Auto-discovers `./traces/`, `generated-agents/*/traces/`, and `$TRACE_DIR`. Pass
 ```bash
 .venv/bin/python run_convo_eval.py              # all 10 scenarios
 .venv/bin/python run_convo_eval.py 03-dq        # single scenario by id prefix
+```
+
+After running evals, score the generated traces:
+
+```bash
+# Score all discovered traces; writes scored.jsonl
+nuvel eval score
+
+# Per-agent summary with averages
+nuvel eval report
+
+# Find the worst-scoring runs
+nuvel eval worst -n 5
 ```
 
 ### Scenarios and results
@@ -312,6 +334,8 @@ sazon-screener/
 ├── run_convo_eval.py                # 10-scenario conversation eval harness
 ├── eval_results/                    # Committed eval transcripts (10 JSON files)
 ├── .env.example                     # OPENROUTER_API_KEY, DEV_MODE, TELEGRAM_*, …
+├── AGENTS.md                        # Coding-agent guidance (Claude Code, Cursor)
+├── CLAUDE.md                        # Claude Code project context
 │
 ├── sazon_screener/
 │   ├── agent.py                     # LlmAgent + LazySkillToolset + guardrail callbacks
@@ -325,6 +349,8 @@ sazon-screener/
 │
 ├── tests/test_agent.py              # Record/replay golden conversation tests
 ├── tests/recordings/                # Golden YAML recordings (empty — run RECORD=true to populate)
+├── memory/                          # Agent memory files
+├── static/test_client.html          # Voice test client (mic → WebSocket)
 └── data/screenings/                 # Output. Created on first completed screening.
 ```
 
